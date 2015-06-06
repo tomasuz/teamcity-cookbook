@@ -14,4 +14,3 @@ suites:
   - name: default
     run_list: ['tc']
     attributes:
-        version: "9.0.4"
