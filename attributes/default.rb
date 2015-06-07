@@ -1,1 +1,5 @@
 default['tc']['version'] = '9.0.4'
+default['tc']['service-name'] = 'teamcity-server'
+default['tc']['service-group'] = 'teamcity'
+default['tc']['service-username'] = 'teamcity'
+default['tc']['service-password'] = 'teamcity'
