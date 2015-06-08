@@ -1,5 +1,10 @@
 ---
 driver:
+  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+  aws_secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
+  aws_ssh_key_id: teamcity
+  region: eu-west-1
+  availability_zone: eu-west-1a
 
 provisioner:
   name: chef_solo
@@ -10,7 +15,13 @@ platforms:
       name: vagrant
       box: centos-7
       box_url: 'https://github.com/holms/vagrant-centos7-box/releases/download/7.1.1503.001/CentOS-7.1.1503-x86_64-netboot.box'
-
+  - name: ec2-centos-7
+    driver:
+      name: ec2
+      image_id: ami-e4ff5c93 
+      flavor_id: t2.micro
+      username: centos 
+      ssh_key: teamcity.pem
 suites:
   - name: default
     run_list: ['tc']

@@ -20,14 +20,14 @@ script_result=0
 
 start() {
     echo -n $"Starting $service_name:"
-    cwd $service_path
+    cd $service_path
     sudo -u $service_user -s -- sh -c $"CATALINA_PID=$pid_file TEAMCITY_DATA_PATH=$data_path $service start"
     script_result=$?    
 }
 
 stop() {
     echo -n $"Stopping $service_name:"
-    cwd $service_path
+    cd $service_path
     sudo -u $service_user -s -- sh -c $"CATALINA_PID=$pid_file TEAMCITY_DATA_PATH=$data_path $service stop"
     script_result=$?    
 }

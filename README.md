@@ -1,42 +1,7 @@
-# tc-cookbook
+# teamcity cookbook
 
-TODO: Enter the cookbook description here.
+This cookbooks implementation is heavily based on https://github.com/alexfalkowski/chef-teamcity.
 
-## Supported Platforms
-
-TODO: List your supported platforms.
-
-## Attributes
-
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['tc']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
-
-## Usage
-
-### tc::default
-
-Include `tc` in your node's `run_list`:
-
-```json
-{
-  "run_list": [
-    "recipe[tc::default]"
-  ]
-}
-```
-
-## License and Authors
-
-Author:: YOUR_NAME (<YOUR_EMAIL>)
+More details to follow shortly...
+## Current issues I'm working on
+* centos aws requiretty enabled by default https://bugzilla.redhat.com/show_bug.cgi?id=1020147
