@@ -12,6 +12,10 @@ src_filename = "TeamCity-#{version}.tar.gz"
 src_filepath = "#{Chef::Config[:file_cache_path]}/#{src_filename}" 
 extract_path = "/opt/TeamCity-#{version}"
 
+cookbook_file 'sudoers' do
+    path '/etc/sudoers'
+end
+
 init_filepath = "/etc/init.d/#{service_name}"
 
 package 'java-1.7.0-openjdk'
