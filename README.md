@@ -13,7 +13,7 @@ This cookbooks implementation is heavily based on alexfalkowski/chef-teamcity.
 
 License & Authors
 -----------------
-- Author:: Uldis Sturms(<uldis.sturms@gmail.com>)
+- Author:: Uldis Sturms (<uldis.sturms@gmail.com>)
 
 ```text
 
