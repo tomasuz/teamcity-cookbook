@@ -24,5 +24,5 @@ platforms:
       ssh_key: teamcity.pem
 suites:
   - name: default
-    run_list: ['tc']
+    run_list: ['teamcity']
     attributes:

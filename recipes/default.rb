@@ -1,11 +1,11 @@
 #
-# Cookbook Name:: tc
+# Cookbook Name:: teamcity
 # Recipe:: default
 
-version = node['tc']['version']
-service_name = node['tc']['service-name']
-service_username = node['tc']['service-username']
-service_group = node['tc']['service-group']
+version = node['teamcity']['version']
+service_name = node['teamcity']['service-name']
+service_username = node['teamcity']['service-username']
+service_group = node['teamcity']['service-group']
 
 src_filename = "TeamCity-#{version}.tar.gz"
 src_filepath = "#{Chef::Config[:file_cache_path]}/#{src_filename}" 
