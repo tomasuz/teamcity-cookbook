@@ -5,7 +5,6 @@
 version = node['tc']['version']
 service_name = node['tc']['service-name']
 service_username = node['tc']['service-username']
-service_password = node['tc']['service-password']
 service_group = node['tc']['service-group']
 
 src_filename = "TeamCity-#{version}.tar.gz"
@@ -26,7 +25,6 @@ group service_group
 user service_username do
     gid service_group
     shell '/bin/bash'
-    password service_password
 end
 
 remote_file src_filepath do
