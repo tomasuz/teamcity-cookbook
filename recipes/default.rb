@@ -42,21 +42,6 @@ bash 'extract' do
     not_if { ::File.exists?(extract_path) }
 end
 
-paths = [
-    "#{extract_path}/lib",
-    "#{extract_path}/config",
-    "#{extract_path}/logs"
-]
-
-paths.each do |p|
-    directory p do
-        owner service_username 
-        group service_group
-        recursive true
-    mode 0755 
-    end
-end
-
 template init_filepath do
     source 'init.erb'
     mode 0755
