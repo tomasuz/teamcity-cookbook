@@ -10,12 +10,13 @@ service_group = node['teamcity']['service-group']
 src_filename = "TeamCity-#{version}.tar.gz"
 src_filepath = "#{Chef::Config[:file_cache_path]}/#{src_filename}" 
 extract_path = "/opt/TeamCity-#{version}"
+data_path = "#{extract_path}/.BuildServer"
 
 cookbook_file 'sudoers' do
     path '/etc/sudoers'
 end
 
-init_filepath = "/etc/init.d/#{service_name}"
+"/etc/init.d/#{service_name}"
 
 package 'java-1.7.0-openjdk'
 package 'net-tools'
@@ -42,7 +43,26 @@ bash 'extract' do
     not_if { ::File.exists?(extract_path) }
 end
 
-template init_filepath do
+directory data_path do
+    owner service_username
+    group service_group
+    mode 0755
+end
+
+directory "#{data_path}/config" do
+    owner service_username
+    group service_group
+    mode 0755
+end
+
+cookbook_file 'database.properties' do
+    path "#{data_path}/config/database.properties"
+    owner service_username
+    group service_group
+    mode 0755
+end
+
+template "/etc/init.d/#{service_name}" do
     source 'init.erb'
     mode 0755
     owner 'root'
