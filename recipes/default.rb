@@ -12,6 +12,8 @@ src_filepath = "#{Chef::Config[:file_cache_path]}/#{src_filename}"
 extract_path = "/opt/TeamCity-#{version}"
 data_path = "#{extract_path}/.BuildServer"
 
+
+
 cookbook_file 'sudoers' do
     path '/etc/sudoers'
 end
@@ -78,13 +80,13 @@ service service_name do
     action [:enable, :start]
 end
 
-bash 'accept lincense' do
+bash 'accept license' do
     cwd extract_path
     code <<-EOH
         until curl -v 'http://localhost:8111' 2>&1 | grep -ic 'showAgreement'
         do
             sleep 1
-            echo 'waiting for teamcity license agreement'
+            echo 'waiting for teamcity license agreement to load'
         done
         curl 'http://localhost:8111/showAgreement.html' -H 'Content-Type: application/x-www-form-urlencoded' --data 'accept=true'
         touch license-accepted
@@ -101,11 +103,11 @@ bash 'create teamcity admin user' do
         until grep -iEc "$pattern" "$file"
         do
             sleep 1
-            echo 'waiting for superuser auth token to be written'
+            echo "waiting for superuser auth token to be written to $file"
         done
         token=$(grep -ioE "$pattern" "$file" | grep -oE '[0-9]*' | tail -1)
-        curl "http://localhost:8111/httpAuth/app/rest/users" --basic -u ":$token" -H "Content-Type: application/json" -d '{"username": "teamcity", "password": "teamcity"}'
-        curl "http://localhost:8111/httpAuth/app/rest/users/username:teamcity/roles/SYSTEM_ADMIN/g/" -X PUT --basic -u ":$token" 
+        curl "http://localhost:8111/httpAuth/app/rest/users" --basic -u ":$token" -H "Content-Type: application/json" -d '{"username": "#{node['teamcity']['admin-username']}", "password": "#{node['teamcity']['admin-password']}"}'
+        curl "http://localhost:8111/httpAuth/app/rest/users/username:#{node['teamcity']['admin-username']}/roles/SYSTEM_ADMIN/g/" -X PUT --basic -u ":$token" 
         touch admin-user-created
     EOH
     not_if { ::File.exists?("#{extract_path}/admin-user-created") }
