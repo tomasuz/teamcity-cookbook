@@ -10,12 +10,17 @@ provisioner:
   name: chef_solo
 
 platforms:
-  - name: vagrant-centos-7
+  - name: centos-7-docker
+    driver:
+      name: docker
+      use_sudo: false
+      image: centos:7
+  - name: centos-7-vagrant
     driver:
       name: vagrant
       box: centos-7
       box_url: 'https://github.com/holms/vagrant-centos7-box/releases/download/7.1.1503.001/CentOS-7.1.1503-x86_64-netboot.box'
-  - name: ec2-centos-7
+  - name: centos-7-ec2
     driver:
       name: ec2
       image_id: ami-e4ff5c93 
