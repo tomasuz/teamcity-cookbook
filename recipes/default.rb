@@ -16,8 +16,6 @@ cookbook_file 'sudoers' do
     path '/etc/sudoers'
 end
 
-"/etc/init.d/#{service_name}"
-
 package 'java-1.7.0-openjdk'
 package 'net-tools'
 
@@ -77,6 +75,24 @@ end
 
 service service_name do
     supports start: true, stop: true, restart: true, status: true
-    action [:enable]
+    action [:enable, :start]
+end
+
+bash 'create teamcity user' do
+    cwd extract_path
+    code <<-EOH
+        pattern='Super user authentication token: "(.*)"'
+        file='logs/teamcity-server.log'
+        until grep -iEc "$pattern" "$file"
+        do
+            sleep 1
+            echo 'waiting for superuser auth token to be written'
+        done
+        token=$(grep -ioE "$pattern" "$file" | grep -oE '[0-9]*' | tail -1)
+        curl "http://localhost:8111/httpAuth/app/rest/users" --basic -u ":$token" -H "Content-Type: application/json" -d '{"username": "teamcity", "password": "teamcity"}'
+        curl "http://localhost:8111/httpAuth/app/rest/users/username:teamcity/roles/SYSTEM_ADMIN/g/" -X PUT --basic -u ":$token" 
+        touch admin-user-created
+    EOH
+    not_if { ::File.exists?("#{extract_path}/admin-user-created") }
 end
 
