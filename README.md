@@ -3,6 +3,8 @@
 This cookbooks implementation is heavily based on alexfalkowski/chef-teamcity.
 By installing this cookbook you accept TeamCity license: https://www.jetbrains.com/teamcity/buy/license.html.
 
+[![wercker status](https://app.wercker.com/status/e4bba5327f40e86c5b3a530ff06d0079/m "wercker status")](https://app.wercker.com/project/bykey/e4bba5327f40e86c5b3a530ff06d0079)
+
 #### Examples
 ```ruby
 {
