@@ -1,6 +1,7 @@
 # teamcity cookbook
 
 This cookbooks implementation is heavily based on alexfalkowski/chef-teamcity.
+By installing this cookbook you accept TeamCity license: https://www.jetbrains.com/teamcity/buy/license.html.
 
 #### Examples
 ```ruby

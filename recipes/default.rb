@@ -78,7 +78,22 @@ service service_name do
     action [:enable, :start]
 end
 
-bash 'create teamcity user' do
+bash 'accept lincense' do
+    cwd extract_path
+    code <<-EOH
+        until curl -v 'http://localhost:8111' 2>&1 | grep -ic 'showAgreement'
+        do
+            sleep 1
+            echo 'waiting for teamcity license agreement'
+        done
+        curl 'http://localhost:8111/showAgreement.html' -H 'Content-Type: application/x-www-form-urlencoded' --data 'accept=true'
+        touch license-accepted
+    EOH
+    not_if { ::File.exists?("#{extract_path}/license-accepted") }
+    only_if { node['teamcity']['accept-license'] }
+end
+
+bash 'create teamcity admin user' do
     cwd extract_path
     code <<-EOH
         pattern='Super user authentication token: "(.*)"'
