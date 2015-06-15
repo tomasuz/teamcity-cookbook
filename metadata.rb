@@ -4,7 +4,7 @@ maintainer_email 'uldis.sturms@gmail.com'
 license          'apache license version 2.0'
 description      'installs and configures teamcity'
 long_description 'installs and configures teamcity'
-version          '0.1.0'
+version          '0.1.1'
 
 recipe 'teamcity-cookbook', 'Installs Teamcity server'
 

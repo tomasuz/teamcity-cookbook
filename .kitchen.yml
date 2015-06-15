@@ -29,5 +29,5 @@ platforms:
       ssh_key: teamcity.pem
 suites:
   - name: default
-    run_list: ['teamcity']
+    run_list: ['teamcity-cookbook']
     attributes:
