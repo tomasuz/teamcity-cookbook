@@ -1,5 +1,7 @@
 # teamcity cookbook
 
+[![Join the chat at https://gitter.im/uldissturms/teamcity-cookbook](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/uldissturms/teamcity-cookbook?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This cookbooks implementation is heavily based on alexfalkowski/chef-teamcity.
 By installing this cookbook you accept TeamCity license: https://www.jetbrains.com/teamcity/buy/license.html.
 
