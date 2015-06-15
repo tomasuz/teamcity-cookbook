@@ -2,3 +2,6 @@ box: ruby
 build:
     steps:
         - bundle-install
+        - script:
+            name: run foodcritic
+            code: foodcritic -B .

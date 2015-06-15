@@ -92,3 +92,11 @@ Vagrantfile
 # Travis #
 ##########
 .travis.yml
+
+# Wercker #
+##########
+wercker.yml
+
+# Keys #
+##########
+*.pem
