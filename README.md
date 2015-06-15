@@ -9,7 +9,7 @@ By installing this cookbook you accept TeamCity license: https://www.jetbrains.c
 ```ruby
 {
   "run_list": [
-    "recipe[teamcity]"
+    "recipe[teamcity-cookbook]"
   ]
 }
 ```
