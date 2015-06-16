@@ -10,3 +10,4 @@ recipe 'teamcity-cookbook', 'Installs Teamcity server'
 
 supports 'centos', '~> 7.0'
 
+depends 'java'

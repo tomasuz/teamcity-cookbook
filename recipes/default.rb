@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: teamcity
+# Cookbook Name:: teamcity-cookbook
 # Recipe:: default
 
 version = node['teamcity']['version']
@@ -8,17 +8,16 @@ service_username = node['teamcity']['service-username']
 service_group = node['teamcity']['service-group']
 
 src_filename = "TeamCity-#{version}.tar.gz"
+src_uri = node['teamcity']['src-uri'] || "http://download-cf.jetbrains.com/teamcity/#{src_filename}"
 src_filepath = "#{Chef::Config[:file_cache_path]}/#{src_filename}" 
 extract_path = "/opt/TeamCity-#{version}"
 data_path = "#{extract_path}/.BuildServer"
-
-
 
 cookbook_file 'sudoers' do
     path '/etc/sudoers'
 end
 
-package 'java-1.7.0-openjdk'
+include_recipe 'java'
 package 'net-tools'
 
 group service_group 
@@ -28,8 +27,10 @@ user service_username do
     shell '/bin/bash'
 end
 
+log "downloading teamcity from: #{src_uri}"
+
 remote_file src_filepath do
-    source "http://download-cf.jetbrains.com/teamcity/#{src_filename}"
+    source src_uri 
     not_if { ::File.exists?(extract_path) }
 end
 

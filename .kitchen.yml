@@ -10,11 +10,11 @@ provisioner:
   name: chef_solo
 
 platforms:
-  - name: centos-7-docker
+  - name: debian-8-docker
     driver:
       name: docker
       use_sudo: false
-      image: centos:7
+      image: debian:8.0
   - name: centos-7-vagrant
     driver:
       name: vagrant

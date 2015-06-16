@@ -5,3 +5,4 @@ default['teamcity']['service-username'] = 'teamcity'
 default['teamcity']['accept-license'] = true
 default['teamcity']['admin-username'] = 'teamcity'
 default['teamcity']['admin-password'] = 'teamcity'
+default['java']['jdk_version'] = 7
