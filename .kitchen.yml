@@ -24,9 +24,9 @@ platforms:
     driver:
       name: ec2
       image_id: ami-e4ff5c93 
-      flavor_id: t2.micro
-      username: centos 
-      ssh_key: teamcity.pem
+      instance_type: t2.micro
+      transport.username: centos
+      transport.ssh_key: teamcity.pem
 suites:
   - name: default
     run_list: ['teamcity-cookbook']
