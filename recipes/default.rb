@@ -8,14 +8,10 @@ service_username = node['teamcity']['service-username']
 service_group = node['teamcity']['service-group']
 
 src_filename = "TeamCity-#{version}.tar.gz"
-src_uri = node['teamcity']['src-uri'] || "http://download-cf.jetbrains.com/teamcity/#{src_filename}"
+src_uri = node['teamcity']['src-uri'] || "https://download.jetbrains.com/teamcity/#{src_filename}"
 src_filepath = "#{Chef::Config[:file_cache_path]}/#{src_filename}" 
 extract_path = "/opt/TeamCity-#{version}"
 data_path = "#{extract_path}/.BuildServer"
-
-cookbook_file 'sudoers' do
-    path '/etc/sudoers'
-end
 
 include_recipe 'java'
 package 'net-tools'
