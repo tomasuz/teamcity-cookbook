@@ -59,7 +59,38 @@ cookbook_file 'database.properties' do
     mode 0755
 end
 
-template "/etc/init.d/#{service_name}" do
+if node['teamcity']['init_style'] == :systemd
+
+    template "/etc/systemd/system/#{service_name}.service" do
+      owner: 'root',
+      group: 'root',
+      mode: 0755,
+      source: 'systemd-service.erb',
+      variables(
+          service_name: service_name,
+          limitnofile: node['teamcity']['limitnofile']
+          service_path: extract_path + '/.BuildServer',
+          service_user: service_username
+          service_group: service_group
+          jar_path: extract_path + '/bin/teamcity-server.sh'
+      )
+#      notifies :run, "execute[#{systemctl enable service}]"
+    end
+
+    execute "systemctl enable service" do
+      command "systemctl enable #{service_name}.service"
+      action :run
+#      notifies :restart, "service[#{service_name}]"
+    end
+
+    service service_name do
+      supports start: true, stop: true, restart: true, status: true
+      action [:enable, :start]
+    end
+
+else if node['teamcity']['init_style'] == :sysv
+
+  template "/etc/init.d/#{service_name}" do
     source 'init.erb'
     mode 0755
     owner 'root'
@@ -70,12 +101,15 @@ template "/etc/init.d/#{service_name}" do
         service_username: service_username
     )
     notifies :restart, "service[#{service_name}]", :delayed
-end
+  end
 
-service service_name do
+  service service_name do
     supports start: true, stop: true, restart: true, status: true
     action [:enable, :start]
+  end
+
 end
+
 
 bash 'accept license' do
     cwd extract_path

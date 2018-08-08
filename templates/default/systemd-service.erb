@@ -1,0 +1,24 @@
+[Unit]
+Description=<%= @service_name %>
+After=<%= @service_name %>.service
+
+[Service]
+Type=simple
+LimitNOFILE=<%= @limitnofile %>
+PermissionsStartOnly=true
+ExecStartPre=/bin/mkdir -p /run/<%= @service_name %>
+ExecStartPre=/bin/chown -R <%= @service_user %>:<%= @service_group %> /run/<%= @service_name %>/
+WorkingDirectory=<%= @service_path %>
+ExecStart=<%= @jar_path %>
+Restart=always
+User=<%= @service_user %>
+Group=<%= @service_group %>
+Restart=on-failure
+RestartSec=15
+StartLimitInterval=10s
+StartLimitBurst=3
+StandardOutput=null
+StandardError=null
+
+[Install]
+WantedBy=multi-user.target

@@ -7,4 +7,5 @@ default['teamcity']['admin-username'] = 'teamcity'
 default['teamcity']['admin-password'] = 'teamcity'
 default['java']['jdk_version'] = 8
 # possible :sysv and :systemd
-default['teamcity']['init_style'] = :systemd,
+default['teamcity']['init_style'] = :systemd
+default['teamcity']['limitnofile'] = 4096
