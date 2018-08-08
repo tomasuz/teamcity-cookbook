@@ -62,16 +62,16 @@ end
 if node['teamcity']['init_style'] == :systemd
 
     template "/etc/systemd/system/#{service_name}.service" do
-      owner: 'root',
-      group: 'root',
-      mode: 0755,
-      source: 'systemd-service.erb',
+      owner: 'root'
+      group: 'root'
+      mode: 0755
+      source: 'systemd-service.erb'
       variables(
           service_name: service_name,
-          limitnofile: node['teamcity']['limitnofile']
+          limitnofile: node['teamcity']['limitnofile'],
           service_path: extract_path + '/.BuildServer',
-          service_user: service_username
-          service_group: service_group
+          service_user: service_username,
+          service_group: service_group,
           jar_path: extract_path + '/bin/teamcity-server.sh'
       )
 #      notifies :run, "execute[#{systemctl enable service}]"
