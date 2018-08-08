@@ -5,6 +5,14 @@
 # chkconfig: 235 10 90
 # description: TeamCity server deamon
 # 
+### BEGIN INIT INFO
+# Required-Start:    $remote_fs $network $named
+# Required-Stop:     $remote_fs $network $named
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: <%= @service_name %> daemon
+### END INIT INFO
+
 
 # source function library
 . /etc/rc.d/init.d/functions
