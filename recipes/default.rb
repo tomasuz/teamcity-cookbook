@@ -67,12 +67,12 @@ if node['teamcity']['init_style'] == :systemd
       mode 0755
       source 'systemd-service.erb'
       variables (
-          service_name: service_name,
-          limitnofile: node['teamcity']['limitnofile'],
-          service_path: extract_path + '/.BuildServer',
-          service_user: service_username,
-          service_group: service_group,
-          jar_path: extract_path + '/bin/teamcity-server.sh'
+          :service_name => service_name,
+          :limitnofile => node['teamcity']['limitnofile'],
+          :service_path => extract_path + '/.BuildServer',
+          :service_user => service_username,
+          :service_group => service_group,
+          :jar_path => extract_path + '/bin/teamcity-server.sh'
       )
 #      notifies :run, "execute[#{systemctl enable service}]"
     end
