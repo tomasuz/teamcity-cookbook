@@ -62,11 +62,11 @@ end
 if node['teamcity']['init_style'] == :systemd
 
     template "/etc/systemd/system/#{service_name}.service" do
+      source 'systemd-service.erb'
       owner 'root'
       group 'root'
       mode 0755
-      source 'systemd-service.erb'
-      variables (
+      variables(
           :service_name => service_name,
           :limitnofile => node['teamcity']['limitnofile'],
           :service_path => extract_path + '/.BuildServer',
@@ -88,7 +88,7 @@ if node['teamcity']['init_style'] == :systemd
       action [:enable, :start]
     end
 
-else if node['teamcity']['init_style'] == :sysv
+elsif node['teamcity']['init_style'] == :sysv
 
   template "/etc/init.d/#{service_name}" do
     source 'init.erb'
