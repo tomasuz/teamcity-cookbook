@@ -1,15 +1,17 @@
 [Unit]
 Description=<%= @service_name %>
-After=<%= @service_name %>.service
+After=network.target
 
 [Service]
-Type=simple
+Type=forking
 LimitNOFILE=<%= @limitnofile %>
 PermissionsStartOnly=true
 ExecStartPre=/bin/mkdir -p /run/<%= @service_name %>
 ExecStartPre=/bin/chown -R <%= @service_user %>:<%= @service_group %> /run/<%= @service_name %>/
+PIDFile=<%= @service_path %>/logs/teamcity-server.pid
 WorkingDirectory=<%= @service_path %>
-ExecStart=<%= @jar_path %>
+ExecStart=<%= @jar_path %> start
+ExecStop=<%= @jar_path %> stop
 Restart=always
 User=<%= @service_user %>
 Group=<%= @service_group %>
