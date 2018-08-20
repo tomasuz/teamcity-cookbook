@@ -69,6 +69,7 @@ if node['teamcity']['init_style'] == :systemd
       variables(
           :service_name => service_name,
           :limitnofile => node['teamcity']['limitnofile'],
+          :extract_path => extract_path,
           :service_path => extract_path + '/.BuildServer',
           :service_user => service_username,
           :service_group => service_group,
