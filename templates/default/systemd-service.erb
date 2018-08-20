@@ -8,7 +8,7 @@ LimitNOFILE=<%= @limitnofile %>
 PermissionsStartOnly=true
 ExecStartPre=/bin/mkdir -p /run/<%= @service_name %>
 ExecStartPre=/bin/chown -R <%= @service_user %>:<%= @service_group %> /run/<%= @service_name %>/
-PIDFile=<%= @service_path %>/logs/teamcity-server.pid
+PIDFile=/run/<%= @service_name %>/teamcity-server.pid
 WorkingDirectory=<%= @service_path %>
 ExecStart=<%= @jar_path %> start
 ExecStop=<%= @jar_path %> stop
