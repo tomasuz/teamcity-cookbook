@@ -52,13 +52,31 @@ directory "#{data_path}/config" do
     mode 0755
 end
 
-cookbook_file 'database.properties' do
-    path "#{data_path}/config/database.properties"
-    owner service_username
-    group service_group
-    mode 0755
+if node['teamcity']['dbms'] == :postgresql
+    template "#{data_path}/config/database.properties" do
+      source 'database.properties.erb'
+      owner service_username
+      group service_group
+      mode 0755
+      variables(
+          :driver => node['teamcity']['jdbcdriver'],
+          :dbhost => node['teamcity']['dbhost'],
+          :database => node['teamcity']['database'],
+          :dbuser => node['teamcity']['dbuser'],
+          :dbpassword => node['teamcity']['dbpassword'],
+      )
+    end
+else
+
+    cookbook_file 'database.properties' do
+        path "#{data_path}/config/database.properties"
+        owner service_username
+        group service_group
+        mode 0755
+    end
 end
 
+  
 if node['teamcity']['init_style'] == :systemd
 
     template "/etc/systemd/system/#{service_name}.service" do
